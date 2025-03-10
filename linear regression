@@ -1,0 +1,43 @@
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+
+x=np.asarray([20,5,10,13,12])
+y=np.asarray([44,22,25,32,27])
+
+df=pd.DataFrame({'x':x,'y':y})
+rows=df.shape[0]
+cols=df.shape[1]
+#showing first five rows of data frame
+df.head()
+plt.scatter(x,y)
+plt.show()
+print("Total Rows: " + str(rows))
+print("Total Coloumns: " + str(cols))
+#find mean of x and y
+xmean=np.mean(x)
+ymean=np.mean(y)
+
+xy=np.sum(x*y)
+xymean=np.mean(x*y)
+x2s=x**2
+x2smean=np.mean(x2s)
+xmean2s=xmean**2
+b1=(xymean-xmean*ymean)/(x2smean-xmean2s)
+b0=ymean-(b1*xmean)
+print(f'b0={b0}')
+print(f'b1={b1}')
+ypred=b0+b1*x
+print("Prediction:\n",ypred)
+ypdif=y-ypred
+print("Mean of y and y pred diff ",np.mean(ypdif))
+ypdif2=ypdif**2
+print("Mean of square y and y pred diff",np.mean(ypdif2))
+#plot regressions
+plt.figure(figsize=(10,5))
+plt.plot(x, ypred)
+plt.plot(x, y, 'ro')
+plt.title('Actual vs Predicted')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
